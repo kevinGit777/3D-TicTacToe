@@ -3,18 +3,20 @@ import java.util.Scanner;
  * Main
  */
 public class Main {
+    static Scanner scanner_in = new Scanner(System.in);
     public static void main(String[] args) {
         //create playground
         boolean ending = false;
         
         while (!ending) {
             Playground game = createPlayground();
-            Player[] players = initialPlayer();
+            Player[] players = initialPlayer(game);
             int cur_player =-1;
             Position pos;
 
             while (!game.getFinish_status()) {
                 cur_player = (cur_player+1) % 2;
+                System.out.println(game.toString());
                 do {
                     pos = players[cur_player].move();
                 } while (game.checkValid(pos));
@@ -22,7 +24,10 @@ public class Main {
                 
             }
             ending = finishGame(cur_player);
+            players[0].close();
         }
+        
+        scanner_in.close();
        
     }
     
@@ -33,16 +38,16 @@ public class Main {
         return ans.charAt(0) == 'y';
     }
 
-    private static Player[] initialPlayer() {
+    private static Player[] initialPlayer(Playground game) {
         Player[] players = new Player[2];
-        players[1] = new AI();
+        players[1] = new AI(game);
         System.out.println("Would you want to play?(y/n)");
         String ans = getUserInput();
         if(ans.charAt(0) == 'y')
         {
             players[0] = new User();
         }else{
-            players[0] = new AI();
+            players[0] = new AI(game);
         }
         return players;
     }
@@ -60,9 +65,7 @@ public class Main {
     }
 
     private static String getUserInput() throws NumberFormatException{
-        Scanner scanner_in = new Scanner(System.in);
         String str= scanner_in.nextLine();
-        scanner_in.close();
         return str;
     }
 }

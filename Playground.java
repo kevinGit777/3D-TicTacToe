@@ -82,7 +82,7 @@ public class Playground {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < size; i++) {
-            sb.append("Layer " +i+ "\n\tColumn0 \tColumn1 \t Column2");
+            sb.append("Layer " +i+ "\n\tColumn0 \tColumn1 \t Column2\n");
             for (int j = 0; j < size; j++) {
                 sb.append("Row "+ j+"\t");
                 for (int k = 0; k < size; k++) {
@@ -105,7 +105,7 @@ public class Playground {
                 }
                 sb.append("\n");
             }
-            sb.append("\n\n");
+            sb.append("\n");
         }
         return sb.toString();
     }
