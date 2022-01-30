@@ -1,6 +1,6 @@
 import java.util.Random;
 /**
- * simple AI ouput random position on the playground
+ * simple AI output random position on the playground
  * 
  * 
  */
