@@ -41,6 +41,11 @@ public class Playground {
         for (int i = 0; i < 2; i++) {
             init.add( new int[]{init.get(i)[0] *-1, init.get(i)[1] * -1});
         }
+        for (int[] rule : init) {
+			for (int i = -1; i < 2; i++) {
+				wingin_rules.add(new int[] {rule[0] ,rule[1] ,i});
+			}
+		}
         for (int i = 0; i < 4; i++) {
             for (int j = i+1; j < 4; j++) {
                 int x = init.get(i)[0]+init.get(j)[0];

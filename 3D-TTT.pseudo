@@ -1,0 +1,68 @@
+class main {
+    create playground
+    while (not end) {
+        while (!valid_move) {
+            cur player move    
+        }
+        check wining
+        switch player
+    }
+    ask continue
+}
+
+class playground {
+    constructor(int: size) {
+        
+    }
+    function check_valid(pos) {
+        
+    }
+
+    function toString() {
+        
+    }
+}
+
+class wining_rule{
+    wining_rule{
+        //gnerate rule
+        init: [1,0] [0,1] 
+        init *-1 // 4 direction
+        for (i in init) {
+            for (j = i +1 to 3) {
+                if (i+j !=0)
+                init+= i+j
+            }
+        } // done for 2d
+        [-1, 0,1] //z 
+        dir_vector = init * z
+        dir_vector +=[0,0,1], [0,0,-1]
+        //26 direction vector
+    }
+
+    function check_wining(pos, player) {
+        win = false;
+        for pos in dir_vector
+        {
+            if has marks from same player
+                check marks at pos*2
+                check marks at pos *-1
+            if win 
+            break;
+        }
+         return win  
+    }
+}
+
+class marks {
+    constructor(player) {
+        
+    }
+
+}
+
+class player {
+    constructor(param) {
+        
+    }
+}
