@@ -8,6 +8,7 @@ public class Playground {
     int size;
     int emptySpace;
     List<int[]> wingin_rules;
+    boolean draw;
 
 
     public Playground()
@@ -19,6 +20,7 @@ public class Playground {
         this.emptySpace = size*size*size;
         this.size = size;
         finished = false;
+        draw =false;
         ground = new int[size][size][size];
         for (int i = 0; i < size; i++) {
             ground[i] = new int[size][size];
@@ -74,6 +76,18 @@ public class Playground {
         return true;
     }
 
+    public char getCharMark(Position pos) {
+        switch(getMark(pos))
+        {
+            case 0:
+                return 'x';
+            case 1:
+                return 'o';
+            default:
+                return 'b';
+        }
+    }
+
 
 
     private boolean checkInRange(Position pos) {
@@ -94,7 +108,7 @@ public class Playground {
                     String ch = null;
                     switch (getMark(new Position(k, j, i))) {
                         case -1:
-                            ch = "E\t";
+                            ch = "B\t";
                             break;
                         case 0:
                             ch = "X\t";
@@ -123,12 +137,22 @@ public class Playground {
     public void putMark(Position pos, int cur_player) {
         ground[pos.getX()][pos.getY()][pos.getZ()] = cur_player;
         emptySpace--;
-        if(emptySpace ==0)
-            finished =true;
-        finished = checkWin(pos, cur_player);
+        boolean win = checkWin(pos, cur_player);
+        draw = !finished && (emptySpace==0); 
+        finished = draw || win;
+        
     }
+    
+    public boolean checkDraw() {
+		return draw;
+	}
+    
+    public void deleteMark(Position pos) {
+        ground[pos.getX()][pos.getY()][pos.getZ()] = -1;
+        emptySpace++;
+	}
 
-    private boolean checkWin(Position pos, int cur_player) {
+    public boolean checkWin(Position pos, int cur_player) {
         for (int[] vector : wingin_rules) {
             if(getMark(movePosition(pos, vector, 1)) == cur_player &&
                 (getMark(movePosition(pos, vector, 2) ) == cur_player // the end mark

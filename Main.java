@@ -4,6 +4,7 @@ import java.util.Scanner;
  */
 public class Main {
     static Scanner scanner_in = new Scanner(System.in);
+    
     public static void main(String[] args) {
         //create playground
         boolean ending = false;
@@ -24,26 +25,30 @@ public class Main {
                 } while (!game.checkValid(pos));
                 game.putMark(pos, cur_player);
                 System.out.println("Player "+cur_player+" put mark on "+"Layer "+pos.getZ()+", Row "+pos.getY() +", Column"+pos.getX());
-                
             }
-            ending = finishGame(cur_player);
+            ending = finishGame(cur_player, game.checkDraw());
             if(ending)
             	closeGame(players);
         }
-        
-        scanner_in.close();
        
     }
+    
+    
     
     private static void closeGame(Player[] players) {
 		// TODO Auto-generated method stub
     	for (Player player : players) {
     		player.close();
 		}
+    	scanner_in.close();
 	}
 
-	private static boolean finishGame(int cur_player) {
-        System.out.println("Player "+cur_player+" won!");
+	private static boolean finishGame(int cur_player, boolean draw) {
+		if (draw) {
+			System.out.println("GG! Draw!");
+		}else {
+			System.out.println("Player "+cur_player+" won!");
+		}
         System.out.println("Would you like to play again?(y/n)");
         String ans = getUserInput();
         return !(ans.charAt(0) == 'y');
@@ -54,19 +59,19 @@ public class Main {
         //players[1] = new AI(game);
         System.out.println("Would you want to play as Player 0?(y/n)");
         String ans = getUserInput();
-        if(ans.charAt(0) == 'y')
+        if(ans.charAt(0) == 'y') //X marks
         {
             players[0] = new User();
         }else{
-            players[0] = new AI(game);
+            players[0] = new AI(game, 0);
         }
         System.out.println("Would you want to play as Player 1?(y/n)");
         ans = getUserInput();
-        if(ans.charAt(0) == 'y')
+        if(ans.charAt(0) == 'y') // O marks
         {
             players[1] = new User();
         }else{
-            players[1] = new AI(game);
+            players[1] = new AI(game, 1);
         }
         return players;
     }
